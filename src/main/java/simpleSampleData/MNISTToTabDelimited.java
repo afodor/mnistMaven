@@ -1,12 +1,14 @@
-package mnist;
+package simpleSampleData;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class MNISTToTabDelimited {
 
     public static void main(String[] args) {
-        String imagesFilePath = "C:\\Users\\afodor\\git\\mnistMaven\\src\\main\\resources\\t10k-images-idx3-ubyte";
-        String labelsFilePath = "C:\\Users\\afodor\\git\\mnistMaven\\src\\main\\resources\\t10k-labels-idx1-ubyte";
+        String imagesFilePath = "C:\\temp\\synthetic_images.idx3-ubyte";
+        String labelsFilePath = "C:\\temp\\synthetic_labels.idx1-ubyte";
         String outputFilePath = "c:\\temp\\mnist_data.tsv";
 
         try {
@@ -63,16 +65,11 @@ public class MNISTToTabDelimited {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
         for (int i = 0; i < images.length; i++) {
-        	
-        	if( i %10 == 0 )
-        	{
-        		
-        	writer.write(labels[i] + "\t");
+            writer.write(labels[i] + "\t");
             for (int j = 0; j < images[i].length; j++) {
                 writer.write(images[i][j] + (j == images[i].length - 1 ? "" : "\t"));
             }
             writer.newLine();
-        	}
         }
 
         writer.close();

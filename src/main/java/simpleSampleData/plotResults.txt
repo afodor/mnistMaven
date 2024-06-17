@@ -1,0 +1,31 @@
+
+
+# Specify the directory containing the files
+directory <- "c:\\temp"
+setwd(directory)
+
+# Get the list of files in the directory
+files <- list.files(directory, full.names = TRUE)
+
+pdf("allPlots.pdf")
+par(mfrow=c(3,2))
+
+colors <- c("red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray", "cyan")
+
+
+# Loop through each file and create a plot
+for (f in files) 
+{
+	ends_with_txt <- grepl("\\.txt$", f)
+	
+	if( ends_with_txt  ) 
+	{
+		myT <- read.table(file=f,header=TRUE,sep="\t")
+		plot(myT$V1, myT$V2,col=colors[myT$label+1], ylab = "Class label 2",main=f)
+		#legend("topright", legend=0:9, col=colors, pch=16)
+	}
+ 	
+}
+
+dev.off()
+
