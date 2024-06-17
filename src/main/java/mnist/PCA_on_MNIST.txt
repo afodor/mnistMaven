@@ -24,5 +24,5 @@ label_colors <- colors[as.numeric(factor(pca_data$Label))]
 plot(pca_data$PC1, pca_data$PC2, col = label_colors, pch = 19, xlab = "Principal Component 1", ylab = "Principal Component 2", main = "PCA of MNIST Data")
 
 # Add a legend
-legend("topright", legend = unique(pca_data$Label), col = colors, pch = 19)
+legend("topright", legend = 0:9, col = colors, pch = 19)
 
