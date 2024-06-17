@@ -1,0 +1,28 @@
+# Read the tab-delimited file
+data <- read.delim("c:\\temp\\mnist_data.tsv", header = FALSE)
+
+# Separate the labels from the pixel values
+labels <- data$V1
+pixels <- data[, -1]
+
+remove_zero_columns <- function(df) {
+  df[, colSums(df != 0) > 0]
+}
+pixels <- remove_zero_columns(pixels)
+
+# Perform PCA
+pca <- prcomp(pixels, center = TRUE, scale. = TRUE)
+
+# Create a data frame with the PCA results and labels
+pca_data <- data.frame(pca$x, Label = labels)
+
+# Define colors for the plot
+colors <- rainbow(length(unique(pca_data$Label)))
+label_colors <- colors[as.numeric(factor(pca_data$Label))]
+
+# Plot the first two principal components
+plot(pca_data$PC1, pca_data$PC2, col = label_colors, pch = 19, xlab = "Principal Component 1", ylab = "Principal Component 2", main = "PCA of MNIST Data")
+
+# Add a legend
+legend("topright", legend = unique(pca_data$Label), col = colors, pch = 19)
+
