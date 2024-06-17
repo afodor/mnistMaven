@@ -21,7 +21,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class MNISTClassifier {
@@ -80,7 +79,7 @@ public class MNISTClassifier {
             System.out.println(eval.stats());
         	
         	System.out.println("Starting epoch " + epoch);
-        	 writeLastHiddenLayerValuesToFile(model, mnistTest, epoch, eval.accuracy());
+        	 writeLastHiddenLayerValuesToFile(model, mnistTrain, epoch, eval.accuracy());
             model.fit(mnistTrain);
             mnistTrain.reset();
             
