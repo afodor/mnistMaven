@@ -12,7 +12,7 @@ pca <- prcomp(pixels, center = TRUE, scale. = TRUE)
 pca_data <- data.frame(pca$x, Label = labels)
 
 # Define colors for the plot
-colors <- rainbow(length(unique(pca_data$Label)))
+colors <- c("black", "red")
 label_colors <- colors[as.numeric(factor(pca_data$Label))]
 
 # Plot the first two principal components
