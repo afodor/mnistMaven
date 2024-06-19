@@ -10,8 +10,7 @@ files <- list.files(directory, full.names = TRUE)
 pdf("allPlots.pdf")
 par(mfrow=c(3,2))
 
-colors <- c("red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray", "cyan")
-
+colors <- c("black", "red")
 
 # Loop through each file and create a plot
 for (f in files) 
