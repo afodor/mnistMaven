@@ -48,9 +48,10 @@ public class MnistAutoencoder {
                 DataSet batch = trainData.next();
                 INDArray features = batch.getFeatures();
                 model.fit(features, features); // Train with features as both input and output
-                count++;
                 if( count % 200 == 0 )
                 	visualizeResults(model, trainData);
+                count++;
+                
             }
         
             trainData.reset();
