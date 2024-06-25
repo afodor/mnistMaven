@@ -42,7 +42,7 @@ public class MnistVAE {
         }
 
         // Sample from latent space and visualize
-        sampledImages = sampleFromLatentSpace(vae, 10,1);
+        sampledImages = sampleFromLatentSpace(vae, 10,784);
         visualize(sampledImages);
     }
     
