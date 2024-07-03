@@ -35,15 +35,16 @@ public class MnistVAE {
 
         // Train model
         
-        int epochs = 1;
+        int epochs = 10;
         for (int i = 0; i < epochs; i++) {
             trainModel(vae, trainData);
             trainData.reset();
-        }
 
-        // Sample from latent space and visualize
-        sampledImages = sampleFromLatentSpace(vae, 10,784);
-        visualize(sampledImages);
+            // Sample from latent space and visualize
+            sampledImages = sampleFromLatentSpace(vae, 10,784);
+            visualize(sampledImages);
+
+        }
     }
     
     public static INDArray sampleFromLatentSpace(ComputationGraph vae, int numSamples, int latentDim) {
@@ -82,7 +83,10 @@ public class MnistVAE {
 
 
     public static void trainModel(ComputationGraph vae, MnistDataSetIterator data) throws Exception {
-        while (data.hasNext()) {
+        
+    	int count =0;
+    	
+    	while (data.hasNext()) {
             DataSet batch = data.next();
             INDArray features = batch.getFeatures();
 
@@ -96,6 +100,17 @@ public class MnistVAE {
             // Create a DataSet where features are both the inputs and the labels, typical for autoencoders
             DataSet autoencoderInput = new DataSet(features, features);
             vae.fit(autoencoderInput);
+            
+            if( count % 10 == 0 )
+            {
+            	INDArray  sampledImages = sampleFromLatentSpace(vae, 10,784);
+                visualize(sampledImages);
+                
+            }
+          
+            count++;
+            System.out.println(count);
+
         }
     }
 
