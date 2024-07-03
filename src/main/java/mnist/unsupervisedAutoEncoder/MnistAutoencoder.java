@@ -44,13 +44,17 @@ public class MnistAutoencoder {
         int count =0;
         int epochs = 5;
         for (int i = 0; i < epochs; i++) {
+        	boolean firstVal = true;
             while (trainData.hasNext()) {
                 DataSet batch = trainData.next();
                 INDArray features = batch.getFeatures();
                 model.fit(features, features); // Train with features as both input and output
-                if( count % 200 == 0 )
-                	visualizeResults(model, trainData);
+                
+                //epochs only
+                if( firstVal) // if( count % 50== 0 )
+                	 visualizeResults(model, trainData, "epoch " + (i+1) + " count " + count);
                 count++;
+                firstVal =false;
                 
             }
         
@@ -58,11 +62,11 @@ public class MnistAutoencoder {
         }
 
         // Testing phase: visualize the first batch
-        visualizeResults(model, trainData);
+        visualizeResults(model, trainData, "final");
     }
 
-    private static void visualizeResults(MultiLayerNetwork model, DataSetIterator data) throws Exception {
-        JFrame frame = new JFrame("Reconstructed MNIST Images");
+    private static void visualizeResults(MultiLayerNetwork model, DataSetIterator data, String title) throws Exception {
+        JFrame frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(2, 10));
 
@@ -72,8 +76,8 @@ public class MnistAutoencoder {
             INDArray reconstructed = model.output(features);
 
             for (int i = 0; i < 10; i++) {
-                frame.add(createImagePanel(features.getRow(i), "Original " + (i + 1)));
-                frame.add(createImagePanel(reconstructed.getRow(i), "Reconstructed " + (i + 1)));
+                frame.add(createImagePanel(features.getRow(i), "Original " ));
+                frame.add(createImagePanel(reconstructed.getRow(i), "Reconstructed "));
             }
         }
 
